@@ -13,7 +13,8 @@ public class Servicecontroller {
 		SkPhoneBean bean=null;
 		MemberBean memberBean=null;
 		while(true) {
-			switch(JOptionPane.showInputDialog("[메뉴] [0] 종료 [1] 가입 [2] 목록")) {
+			switch(JOptionPane.showInputDialog("[메뉴] [0] 종료 [1] 가입 [2] 목록 [3] 고객번호로 찾기"
+					+ " [4] 이름으로 찾기 [5] 전화번호 변경 [6] 회원삭제")) {
 			case "0":
 				JOptionPane.showMessageDialog(null, "종료합니다");
 				return;
@@ -27,6 +28,18 @@ public class Servicecontroller {
 			case "2":
 				JOptionPane.showMessageDialog(null,
 						service.list());
+				break;
+			case "3":
+				JOptionPane.showMessageDialog(null, service.findByKey(JOptionPane.showInputDialog("고객의 번호를 입력하세요")));
+				break;
+			case "4":
+				JOptionPane.showMessageDialog(null, service.findByName(JOptionPane.showInputDialog("이름을 입력하세요")));
+				break;
+			case "5":
+				JOptionPane.showMessageDialog(null, service.updatePhoneNumber(JOptionPane.showInputDialog("고객넘버를 입력하세요")));
+				break;
+			case "6":
+				service.deleteMember(JOptionPane.showInputDialog("고객넘버를 입력하세요"));
 				break;
 			}
 		}

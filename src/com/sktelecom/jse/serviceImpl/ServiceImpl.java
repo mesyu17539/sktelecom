@@ -14,12 +14,11 @@ public class ServiceImpl implements Service{
 	public ServiceImpl() {
 		mCount=skcount=0;
 		customNum=1000;
-		mbeans=new MemberBean[2];
-		sbeans=new SkPhoneBean[2];
+		mbeans=new MemberBean[3];
+		sbeans=new SkPhoneBean[3];
 	}
 	public void addmem(MemberBean mBean, SkPhoneBean sBean) {
 		String customNum=createCustomNum();
-		System.out.println("생성된 커스텀넘버"+customNum);
 		mBean.setMcount(customNum);
 		sBean.setMcount(customNum);
 		this.mbeans[mCount++]=mBean;
@@ -49,11 +48,75 @@ public class ServiceImpl implements Service{
 				if(sbeans[j].getMcount().equals(mbeans[i].getMcount())) {
 					res = res.concat(mbeans[i].getMcount().
 								concat(mbeans[i].getName().
-								concat(sbeans[i].getBrand().
-								concat(sbeans[i].getNumber()+"\n"))));
+								concat(sbeans[j].getBrand().
+								concat(sbeans[j].getNumber()+"\n"))));
 				}
 			}
 		}
 		return res;
+	}
+	@Override
+	public String findByKey(String key) {
+		String res="";
+		for(int i=0;i<mCount;i++) {
+			for(int j=0;j<skcount;j++) {
+				if(key.equals(mbeans[i].getMcount())&&key.equals(sbeans[j].getMcount())) {
+					res+=mbeans[i].getMcount().
+						concat(mbeans[i].getName()).
+						concat(sbeans[j].getBrand().
+						concat(sbeans[j].getNumber()));
+				}
+			}
+		}
+		return res;
+	}
+	@Override
+	public String findByName(String name) {
+		String res="";
+		for(int i=0;i<mCount;i++) {
+			if(name.equals(mbeans[i].getName())) {
+				res+=mbeans[i].getMcount().concat(mbeans[i].getName());
+				for(int j=0;j<skcount;j++) {
+					if(mbeans[i].getMcount().equals(sbeans[j].getMcount())) {
+						res+=sbeans[j].getBrand().concat(sbeans[j].getNumber()+"\n");
+					}
+				}
+			}
+		}
+		return res;
+	}
+	@Override
+	public String updatePhoneNumber(String key) {
+		for(int j=0;j<skcount;j++) {
+			if(key.equals(sbeans[j].getMcount())) {
+				String num="";
+				for(int i=0;i<8;i++) {
+					num+=(int)(Math.random()*10);
+					if(i==3) {
+						num+="-";
+					}
+				}
+			sbeans[j].setNumber(String.format("010-%s",num));
+			return "새 번호는"+sbeans[j].getNumber();
+			}
+		}
+		return "실패하셨습니다";
+	}
+	@Override
+	public void deleteMember(String key) {
+		for(int i=0;i<mCount;i++) {
+			if(key.equals(mbeans[i].getMcount())) {
+				mbeans[i]=mbeans[sbeans.length-1];
+				mbeans[sbeans.length-1]=null;
+				mCount--;
+			}
+		}
+		for(int j=0;j<skcount;j++) {
+			if(key.equals(sbeans[j].getMcount())) {
+				sbeans[j]=sbeans[sbeans.length-1];
+				sbeans[sbeans.length-1]=null;
+				skcount--;
+			}
+		}
 	}
 }
