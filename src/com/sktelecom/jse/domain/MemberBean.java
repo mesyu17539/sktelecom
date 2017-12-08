@@ -1,7 +1,7 @@
 package com.sktelecom.jse.domain;
 
 public class MemberBean {
-	private String name, mcount;//mcount 키 역할
+	private String name, mcount; //mcount 키 역할
 	public String getName() {
 		return name;
 	}

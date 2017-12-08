@@ -5,4 +5,5 @@ import com.sktelecom.jse.domain.SkPhoneBean;
 
 public interface Service {
 	public String openService(SkPhoneBean bean, MemberBean memberBean);
+	public String list();
 }

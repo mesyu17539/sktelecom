@@ -13,7 +13,7 @@ public class Servicecontroller {
 		SkPhoneBean bean=null;
 		MemberBean memberBean=null;
 		while(true) {
-			switch(JOptionPane.showInputDialog("[메뉴] [0] 종료 [1]가입")) {
+			switch(JOptionPane.showInputDialog("[메뉴] [0] 종료 [1] 가입 [2] 목록")) {
 			case "0":
 				JOptionPane.showMessageDialog(null, "종료합니다");
 				return;
@@ -23,6 +23,11 @@ public class Servicecontroller {
 				bean.setBrand(JOptionPane.showInputDialog("브랜드를 고르세요 [1] GALAXY [2] IPhone"));
 				memberBean.setName(JOptionPane.showInputDialog("이름을 입력하세요"));
 				JOptionPane.showMessageDialog(null, service.openService(bean,memberBean));
+				break;
+			case "2":
+				JOptionPane.showMessageDialog(null,
+						service.list());
+				break;
 			}
 		}
 	}
